@@ -1,0 +1,15 @@
+/* select all*/
+* {
+    background-color: cyan;
+}
+
+/* select html element*/
+button {
+    font-size: 30px;
+}
+
+/* select more than 1 , use comma*/
+h1,
+h2 {
+    color: darkslateblue;
+}
