@@ -10,25 +10,26 @@
 
 <body>
     <nav>
-        <input type="text" placeholder="search">
+        <label for="search">Search</label>
+        <input type="text" placeholder="search" id="search">
         <button>Log In</button>
-        <button>Sign Up</button>
+        <button id="signup">Sign Up</button>
     </nav>
     <main>
         <h1>Popular Posts</h1>
-        <section>
-            <span>Posted by <a href="#213adas">/u/not_funny</a></span>
+        <section class="post">
+            <span class="tag">Posted by <a href="#213adas">/u/not_funny</a></span>
             <h2>Lol look at this hilarious meme <span>funny</span></h2>
             <button>+Vote</button>
             <hr>
-        </section>
+        </section class="post">
         <section>
-            <span>Posted by <a href="#345adas">/u/gooner4lyfe</a></span>
+            <span>Posted by <a href="#345adas">class="tag"</a></span>
             <h2>Happy birthday to the strongest defender/bodyguard in the Prem! <span>gunners</span></h2>
             <button>+Vote</button>
             <hr>
         </section>
-        <section>
+        <section class="post">
             <span>Posted by <a href="#981adas">/u/dogfan</a></span>
             <h2>This Corgi got some good stuff from the vet. <span>dogs</span></h2>
             <button>+Vote</button>

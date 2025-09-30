@@ -1,0 +1,16 @@
+/* element select*/
+li {
+    color: blue;
+}
+
+/* id select*/
+
+.done {
+    color: grey;
+}
+
+/* class select*/
+#clear {
+    background-color: red;
+    color: #ffffff;
+}

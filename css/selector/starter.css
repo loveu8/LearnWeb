@@ -1,15 +1,39 @@
 /* select all*/
 * {
-    background-color: cyan;
+    background-color: #f1faee;
 }
 
 /* select html element*/
 button {
     font-size: 30px;
+    background-color: #8dadac;
 }
 
 /* select more than 1 , use comma*/
 h1,
 h2 {
     color: darkslateblue;
+}
+
+/* id select catch all sign element*/
+#signup {
+    background-color: rgb(102, 200, 158);
+    color: green;
+}
+
+/* */
+span {
+    color: red;
+}
+
+.tag {
+    color: blanchedalmond;
+}
+
+.post a {
+    color: #8dadac;
+}
+
+footer a {
+    color: #c1b4f5;
 }
