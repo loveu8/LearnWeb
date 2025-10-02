@@ -32,8 +32,60 @@ span {
 
 .post a {
     color: #8dadac;
+    font-weight: 700;
+    text-decoration: none;
 }
 
 footer a {
     color: #c1b4f5;
+}
+
+input+button {
+    background-color: pink;
+}
+
+/* same level , first element*/
+h2+button {
+    font-size: 20px;
+    background-color: violet;
+}
+
+/* first child , first element*/
+footer>a {
+    color: black;
+}
+
+/* 選擇特定屬性功能，尋找HTML本體*/
+input[type="password"] {
+    color: greenyellow;
+}
+
+section[class="post"] {
+    background: pink;
+}
+
+a[herf*="google"] {
+    color: magenta
+}
+
+button:hover {
+    background-color: red;
+    color: #c1b4f5;
+}
+
+.post button:hover {
+    background-color: green;
+}
+
+a:hover {
+    text-decoration: overline;
+}
+
+.post button:active {
+    background-color: rgb(129, 173, 129);
+}
+
+/* find class , the number 3 / 2n element*/
+.post:nth-of-type(3) {
+    background-color: #dfe8dc;
 }
