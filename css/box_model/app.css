@@ -1,7 +1,26 @@
-/* Box width and high*/
+/* Box width and high */
+/* box padding 內邊距 */
+/* box margin outside border 外邊距 */
+body {
+    margin: 0;
+}
+
+div {
+    width: 200px;
+    height: 200px;
+}
+
+span {
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
 h1 {
     background-color: yellow;
     width: 150px;
+    padding-left: 100px;
+    padding-top: 50px;
+    margin-bottom: 100px;
 }
 
 div {
@@ -17,6 +36,8 @@ div {
     border-color: black;
     border-style: solid;
     box-sizing: border-box;
+    margin-left: 50px;
+    margin-bottom: 50px;
 }
 
 #two {
@@ -24,15 +45,31 @@ div {
     border-color: #ffcde2;
     border-width: 3px;
     border-style: dashed;
-    box-sizing: border-box;
     border-left-width: 8px;
+    padding-right: 50px;
+    margin: 200px;
 }
 
+/* border radius 圓角 */
 #three {
     background-color: #9a80bc;
     border: 4px solid rgb(0, 0, 0);
     border-left: #ffcde2;
     border-left: dotted;
+    border-radius: 50%;
 }
 
-/* border radius */
+button {
+    /* 4 sides */
+    /* padding: 10px; */
+    /* vertical | horizontal */
+    /* padding: 5px 10px; */
+    /* top | horizontal | bottom */
+    /* padding: 1px 2px 2px;*/
+    /* top | right | hottom | left */
+    padding: 10px 20px 30px 40px;
+}
+
+/* Display Property INLINE , BLOCK, INLINE BLOCK 
+   LINK : https://developer.mozilla.org/en-US/docs/Web/CSS/display
+*/
