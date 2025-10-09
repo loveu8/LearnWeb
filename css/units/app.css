@@ -1,3 +1,7 @@
+html {
+    font-size: 30px;
+}
+
 section {
     background-color: #6d6875;
     width: 800px;
@@ -46,4 +50,17 @@ button {
     border-radius: 0.5em;
     background-color: #2a8d8f;
     color: white;
+}
+
+/* Relative to the root html elment's font-size. Ofter easier to work with*/
+#rems h2 {
+    font-size: 3rem;
+}
+
+#rems h3 {
+    font-size: 2rem;
+}
+
+#rems ul {
+    font-size: 0.8rem;
 }
