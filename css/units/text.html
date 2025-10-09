@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS 單位比較：px / em / rem / %</title>
+    <style>
+        /* === 全域設定 === */
+        html {
+            font-size: 62.5%;
+            /* 1rem = 10px */
+        }
+
+        body {
+            font-family: "Microsoft JhengHei", sans-serif;
+            background-color: #f8f8f8;
+            padding: 2rem;
+        }
+
+        /* === 卡片樣式 === */
+        .card {
+            width: 60%;
+            /* 用百分比讓它響應式 */
+            background-color: #fff;
+            border: 2px solid #ccc;
+            /* 固定像素邊框 */
+            border-radius: 1rem;
+            padding: 2em;
+            /* 跟著字體大小變動 */
+            margin: 2rem auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            font-size: 2.4rem;
+            /* 用 rem 控制全局比例 */
+            margin-bottom: 1em;
+            /* 用 em 跟隨字體變化 */
+            color: #333;
+        }
+
+        .card p {
+            font-size: 1.6rem;
+            /* 基本文字大小 */
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* === 第二張卡片：放大字體測試 === */
+        .card.large {
+            font-size: 2rem;
+            /* 故意放大整體字體 */
+        }
+
+        .note {
+            font-size: 1.4rem;
+            text-align: center;
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>CSS 單位比較：px、em、rem、%</h1>
+
+    <!-- 正常字體大小 -->
+    <div class="card">
+        <h2>普通卡片（font-size: 1rem）</h2>
+        <p>
+            這張卡片的字體用 <strong>rem</strong>，
+            內距用 <strong>em</strong>，
+            邊框用 <strong>px</strong>，
+            寬度用 <strong>%</strong>。
+        </p>
+    </div>
+
+    <!-- 放大字體 -->
+    <div class="card large">
+        <h2>放大卡片（font-size: 2rem）</h2>
+        <p>
+            注意看這張卡片：<br />
+            因為 <code>padding</code> 是用 <strong>em</strong>，
+            所以整個內距也跟著放大；
+            而邊框 <code>2px</code> 沒變，仍然細細的一條。
+        </p>
+    </div>
+
+    <p class="note">縮放頁面或調整瀏覽器大小，觀察差異吧！</p>
+</body>
+
+</html>
