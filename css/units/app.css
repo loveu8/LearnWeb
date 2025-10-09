@@ -1,0 +1,49 @@
+section {
+    background-color: #6d6875;
+    width: 800px;
+    height: 800px;
+}
+
+div {
+    background-color: hsl(358, 60%, 75%);
+    width: 50%;
+    height: 50%;
+}
+
+/*
+    em is relive parents pge
+    1 em = parent side
+    2.   = parent 0%
+
+*/
+h1 {
+    background-color: hsl(358, 60%, 75%);
+    width: 50%;
+    height: 50%;
+    line-height: 200%;
+}
+
+article {
+    font-size: 20px;
+}
+
+h2 {
+    font-size: 5em;
+    margin-left: 1em;
+}
+
+p {
+    font-size: 0.8em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+button {
+    font-size: 1em;
+    padding: 0 1em;
+    border-radius: 0.5em;
+    background-color: #2a8d8f;
+    color: white;
+}
