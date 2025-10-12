@@ -1,0 +1,22 @@
+section {
+    width: 500px;
+    height: 500px;
+    background-color: magenta;
+}
+
+/* rgba can set opacity 0 to 1*/
+#rgba {
+    width: 50%;
+    height: 50%;
+    /* recommand to use this!! */
+    /* background-color: rgba(255, 255, 255, 0.5);*/
+    /* this is not easy to understand */
+    background-color: #00cca0FF;
+}
+
+#opacity {
+    width: 50%;
+    height: 50%;
+    background-color: yellow;
+    opacity: 0.3;
+}
