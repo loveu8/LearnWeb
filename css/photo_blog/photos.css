@@ -1,0 +1,19 @@
+img {
+    /* dividend 3 picture 30% * 3*/
+    width: 30%;
+    /* 10% left, 3 block have 2 side, so total sides are 6
+       and dividend 10%/6 = 1.666666% */
+    /*margin: 1.666666%;*/
+    margin: calc(10%/6);
+}
+
+nav {
+    font-size: 1.5em;
+    text-transform: uppercase;
+    border-bottom: 2px solid #f1f1f1;
+    width: 30%;
+    margin-left: calc(10%/6);
+    padding: 20px 0;
+    font-family: 'Raleway' sans-serif;
+    padding: 1.2em 0;
+}
