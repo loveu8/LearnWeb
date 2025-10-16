@@ -1,0 +1,15 @@
+section {
+    width: 80%;
+    height: 800px;
+    /* background-image: url("https://cdn11.bigcommerce.com/s-4b0oh2xvlj/images/stencil/original/image-manager/sakura-spring-story-1920x640-.jpg");
+    background-size: cover;
+    background-position: top; */
+    background: center/50% no-repeat url("https://cdn11.bigcommerce.com/s-4b0oh2xvlj/images/stencil/original/image-manager/sakura-spring-story-1920x640-.jpg") rgb(56, 186, 38);
+    margin: 0 auto;
+
+}
+
+h1 {
+    font-size: 100px;
+    color: white;
+}
