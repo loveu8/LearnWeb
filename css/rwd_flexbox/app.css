@@ -9,27 +9,83 @@ h1 {
 #container {
     background-color: #003049;
     width: 90%;
-    height: 1200px;
+    height: 500px;
     margin: 0 auto;
     border: 5px solid #003049;
     display: flex;
-    /* element order is according to the html element original order
+    /* flex-direction
+       
+       element order is according to the html element original order
        flex-direction can control the display order 
        row            : 預設排序
        row-reverse    : 列倒過來
        column         : 變行
        colume-reverse : 行倒過來 */
     flex-direction: column;
-    /* this can help to flex element on X
+    /* justify-content
+       
+       this can help to flex element on X
        flex-end      : 靠左邊，原始排序
        center        : 靠中
-       space-between : 留足夠間距，填滿block
-       space-around  : 每個留一樣間距，填滿block
+       space-between : 留足夠間距，填滿block，第一個和最後一個項目都是貼齊邊界
+       space-around  : 每個留一樣間距，填滿block，
+                       第一個和最後一個項目與容器邊緣之間留有一半的額外空間
+       space-evenly  : 均勻地分配開
+       flex-start    : 第一個element貼齊
+       flex-end      : 從最後一個element貼齊
     */
-    justify-content: flex-end;
+    justify-content: center;
+    /*
+      flex-wrap : 控制 當子元素超出容器寬度或高度時，
+                  是否換行排列。
+      nowrap（預設）＝ 不換行，項目會被壓縮。
+      wrap＝ 超出時自動換到下一行。
+      wrap-reverse＝ 也會換行，但「方向反轉」。
+        
+    */
+    flex-wrap: wrap;
+    /* ALIGN ITEMS
+       控制Flex 容器中所有子元素（Flex Items）
+       決定的是「交叉軸（cross axis） 上的對齊方式。
+       center     : 全部垂直置中
+       flex-start : 子項會全部靠上對齊
+       flex-end   : 全部靠下對齊
+    */
+    align-items: flex-end;
+    /*
+      align content
+      align-items 和 align-content，
+      關鍵差別在於一個對齊「項目」，一個對齊「整排」。
+        | 值             | 效果（以 row 為例）       |
+        | ------------- | ---------------------     |
+        | flex-start    | 全部行靠上                 |
+        | flex-end      | 全部行靠下                 |
+        | center        | 所有行在中間                |
+        | space-between | 第一行靠上、最後一行靠下，中間平均分配間距 |
+        | space-around  | 每行上下都有平均間距            |
+        | stretch（預設）| 行會撐開填滿容器高度            |
+    */
+    /* align-content: flex-end; */
 }
 
 #container div {
     width: 200px;
     height: 200px;
+    text-align: center;
 }
+
+/* align-self 是一個用在 flex item（或 grid item）上的屬性，
+   用來覆蓋（override）其父容器的 align-items 設定
+*/
+
+div:nth-of-type(5) {
+    align-self: flex-start;
+}
+
+/* div:nth-of-type(2) {
+    align-self: center;
+}
+
+div:nth-of-type(3) {
+    align-self: flex-start;
+} */
