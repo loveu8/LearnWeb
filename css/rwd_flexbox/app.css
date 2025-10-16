@@ -1,0 +1,35 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+#container {
+    background-color: #003049;
+    width: 90%;
+    height: 1200px;
+    margin: 0 auto;
+    border: 5px solid #003049;
+    display: flex;
+    /* element order is according to the html element original order
+       flex-direction can control the display order 
+       row            : 預設排序
+       row-reverse    : 列倒過來
+       column         : 變行
+       colume-reverse : 行倒過來 */
+    flex-direction: column;
+    /* this can help to flex element on X
+       flex-end      : 靠左邊，原始排序
+       center        : 靠中
+       space-between : 留足夠間距，填滿block
+       space-around  : 每個留一樣間距，填滿block
+    */
+    justify-content: flex-end;
+}
+
+#container div {
+    width: 200px;
+    height: 200px;
+}
