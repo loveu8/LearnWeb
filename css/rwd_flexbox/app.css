@@ -21,7 +21,7 @@ h1 {
        row-reverse    : 列倒過來
        column         : 變行
        colume-reverse : 行倒過來 */
-    flex-direction: column;
+    flex-direction: row;
     /* justify-content
        
        this can help to flex element on X
@@ -51,7 +51,7 @@ h1 {
        flex-start : 子項會全部靠上對齊
        flex-end   : 全部靠下對齊
     */
-    align-items: flex-end;
+    align-items: normal;
     /*
       align content
       align-items 和 align-content，
@@ -71,18 +71,33 @@ h1 {
 #container div {
     width: 200px;
     height: 200px;
+    /* max-width: 300px; */
     text-align: center;
+    /*initial box size*/
+    flex-basis: 600px;
+    /* flex-grow: 1; */
+}
+
+div:nth-last-of-type(1) {
+    flex-grow: 1;
+    flex-shrink: 3;
+}
+
+div:nth-last-of-type(5) {
+    flex-grow: 2;
+    flex-shrink: 0;
 }
 
 /* align-self 是一個用在 flex item（或 grid item）上的屬性，
    用來覆蓋（override）其父容器的 align-items 設定
 */
 
+/*
 div:nth-of-type(5) {
     align-self: flex-start;
 }
 
-/* div:nth-of-type(2) {
+div:nth-of-type(2) {
     align-self: center;
 }
 
