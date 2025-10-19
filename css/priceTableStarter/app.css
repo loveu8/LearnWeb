@@ -170,7 +170,8 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     /* 影響：輕微陰影，增加立體感。不影響置中。 */
     max-width: 1600px;
-    min-width: 1200px;
+    /* 建議加上間距，讓卡片別黏在一起 */
+    gap: 24px;
 }
 
 h2 {
@@ -184,7 +185,12 @@ h2 {
     font-weight: 700;
     text-align: center;
     height: 700px;
-    width: 400px;
+    width: auto;
+    /* ← 改 */
+    max-width: 400px;
+    /* ← 保持桌面版寬度上限 */
+    flex: 1 1 320px;
+    /* ← 讓卡片可縮放、可換行 */
 }
 
 .pricing-features {
@@ -220,4 +226,52 @@ h2 {
     border-radius: 10px / 15px;
     padding: 20px 60px 20px 60px;
     text-decoration: none;
+}
+
+/* 中段視窗可自動換行，避免擠爆 */
+@media (max-width: 900px) {
+    body {
+        display: block;
+    }
+
+    .panel.pricing-table {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* 你要的：≤400px 直排 + 滿寬 */
+@media (max-width: 400px) {
+    body {
+        display: block;
+        /* ← 最單純，取消 Flex 置中 */
+        background-color: yellow;
+    }
+
+    /* 你原本的檢查用顏色，OK */
+
+    .panel.pricing-table {
+        flex-direction: column;
+        /* ← 直排 */
+        width: 100%;
+        /* ← 滿寬，避免 80% 造成視覺誤差 */
+        gap: 16px;
+        /* ← 卡片間距 */
+    }
+
+    .pricing-plan {
+        width: 100%;
+        /* ← 滿寬卡片 */
+        max-width: none;
+        /* ← 解除 400px 上限，不然仍可能溢出 */
+        height: auto;
+        /* ← 讓高度自適應內容 */
+    }
+
+    /* 建議也把內部大元素的外距收斂，避免窄螢幕爆版 */
+    .pricing-plan span {
+        margin: 24px auto;
+        font-size: 2rem;
+        width: auto;
+    }
 }
