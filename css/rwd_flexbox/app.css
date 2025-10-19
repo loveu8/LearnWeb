@@ -78,6 +78,17 @@ h1 {
     /* flex-grow: 1; */
 }
 
+/*
+Flexbox 的「伸縮規則」
+ flex-grow   : 代表這個項目在「空間還有剩」的時候，可以多拿兩倍的空間份額。
+ flex-shrink :
+ .item1 { flex-shrink: 1; } 可以被擠
+ .item2 { flex-shrink: 0; } 不讓你動我
+
+ flex: <grow> <shrink> <basis>;
+*/
+
+/*
 div:nth-last-of-type(1) {
     flex-grow: 1;
     flex-shrink: 3;
@@ -87,6 +98,7 @@ div:nth-last-of-type(5) {
     flex-grow: 2;
     flex-shrink: 0;
 }
+*/
 
 /* align-self 是一個用在 flex item（或 grid item）上的屬性，
    用來覆蓋（override）其父容器的 align-items 設定
@@ -104,3 +116,23 @@ div:nth-of-type(2) {
 div:nth-of-type(3) {
     align-self: flex-start;
 } */
+
+
+main {
+    width: 80%;
+    margin: 0 auto;
+    border: 5px solid black;
+    height: 500px;
+    display: flex;
+}
+
+main .sidebar {
+    background-color: #6930c3;
+    border: 2px;
+    flex: 1 2 300px;
+}
+
+main .maincontent {
+    background-color: #80ffdb;
+    flex: 2 2 800px;
+}
