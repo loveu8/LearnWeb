@@ -1,0 +1,252 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* level 1 */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: #007bff;
+    height: 100vh;
+    text-transform: uppercase;
+    font-family: 'Open Sans', sans-serif;
+
+}
+
+.panel.pricing-table {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+
+/* card style start */
+.pricing-plan {
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5%;
+    padding: 1rem;
+    min-width: 0;
+    flex: 1;
+    position: relative;
+}
+
+.pricing-img {
+    width: 70%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.pricing-header {
+    font-size: 1.2rem;
+    padding: 20px 80px 50px 80px;
+    color: gray;
+    font-weight: 500;
+}
+
+.pricing-features {
+    margin: 0;
+    /* 確保 ul 無額外 margin */
+}
+
+.pricing-features-item {
+    display: block;
+    color: #416dfa;
+    border-top: 1px solid rgb(131, 131, 131);
+    height: 2rem;
+    padding: 20px 60px 20px 60px;
+    margin: 0;
+    font-size: 18px;
+}
+
+.pricing-plan>span {
+    width: 300px;
+    height: 50px;
+    font-size: 3rem;
+    display: block;
+    margin: 50px auto;
+    color: blue;
+}
+
+.pricing-button {
+    border: 1px solid #007bff;
+    border-radius: 10px / 15px;
+    padding: 20px 60px 20px 60px;
+    text-decoration: none;
+    font-size: 30px;
+}
+
+.pricing-button.is-featured {
+    border: 1px solid blue;
+    background-color: blue;
+    color: white;
+    border-radius: 10px / 15px;
+    padding: 20px 60px 20px 60px;
+    text-decoration: none;
+}
+
+/* card style end */
+
+/* RWD */
+@media (max-width:900px) {
+    body {
+        display: block;
+    }
+
+    .panel.pricing-table {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* 你要的：≤400px 直排 + 滿寬 */
+@media (max-width: 400px) {
+    body {
+        display: block;
+        /* ← 最單純，取消 Flex 置中 */
+        background-color: yellow;
+    }
+
+    .panel.pricing-table {
+        flex-direction: column;
+        /* ← 直排 */
+        width: 100%;
+        /* ← 滿寬，避免 80% 造成視覺誤差 */
+        gap: 16px;
+        /* ← 卡片間距 */
+    }
+}

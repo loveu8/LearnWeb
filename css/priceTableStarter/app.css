@@ -134,144 +134,121 @@ table {
     border-spacing: 0;
 }
 
-body {
-    display: flex;
-    /* 影響：將 body 變成 Flex 容器，讓它的子元素（.panel.pricing-table）能用 Flex 屬性排列。如果沒這行，justify-content 和 align-items 就無效。 */
-    justify-content: center;
-    /* 影響：水平置中子元素（沿主軸，即寬度方向）。center 讓表格左右居中；如果改成 space-around，會平均分佈多個子元素（但這裡只有一個子元素，所以 center 最合適）。 */
-    align-items: center;
-    /* 影響：垂直置中子元素（沿交叉軸，即高度方向）。center 讓表格上下居中；如果沒這行，表格會貼頂部。 */
-    height: 100vh;
-    /* 影響：讓 body 高度滿整個視窗（vh = viewport height）。如果沒這行，垂直置中無效，因為 body 高度會塌陷到內容大小，導致表格貼頂。 */
-    margin: 0;
-    /* 影響：移除 body 的預設邊距（瀏覽器通常有 8px）。如果沒這行，表格可能有小偏移，不完全貼邊置中。 */
-    background-color: #007bff;
-    /* 影響：設定藍色背景（如截圖）。這不直接影響置中，但讓畫面看起來像全屏置中效果。 */
+html {
+    /* V1 setting element with border box */
+    box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
-    /* 影響：全局字體設定，從你的 HTML link 來的。不影響置中，但確保文字一致。 */
+}
+
+body {
+    background-color: #60a9ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* V2 至少和視窗一樣高 */
+    min-height: 100vh;
+}
+
+.panel {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px 25px;
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
     text-transform: uppercase;
 }
 
-.panel.pricing-table {
-    display: flex;
-    /* 影響：將這個 div 變成 Flex 容器，讓它的子元素（三個 .pricing-plan）能水平排列。如果沒這行，卡片會垂直堆疊，而不是並排。 */
-    flex-direction: row;
-    /* 影響：設定主軸為水平（row）。這是預設值，但加進來確保明確；如果改成 column，卡片會垂直排列。 */
-    justify-content: space-around;
-    /* 影響：水平排列內部卡片，並在它們之間平均分配空間（space-around 讓邊緣也有間距，看起來更平衡）。如果改成 center，卡片會擠在中間；space-between 只在卡片間加空間，邊緣無。 */
-    width: 80%;
-    /* 影響：限制表格寬度為畫面的 80%。如果沒這行，表格可能滿寬（100%），導致置中後看起來太大；可以用 max-width: 800px; 來固定最大寬度，避免在小螢幕擠壓。 */
-    background-color: white;
-    /* 影響：白色背景，讓表格從藍色畫面中突出。不影響置中。 */
-    padding: 20px;
-    /* 影響：內邊距，讓內容有呼吸空間。不影響置中，但改善視覺。 */
-    border-radius: 8px;
-    /* 影響：圓角邊框，如截圖的柔和邊緣。不影響置中。 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* 影響：輕微陰影，增加立體感。不影響置中。 */
-    max-width: 1600px;
-    /* 建議加上間距，讓卡片別黏在一起 */
-    gap: 24px;
-}
-
-h2 {
-    text-align: center;
-    font-size: 25px;
-    margin: 30px 30px 60px 30px;
-}
-
 .pricing-plan {
-    font-size: 20px;
-    font-weight: 700;
-    text-align: center;
-    height: 700px;
-    width: auto;
-    /* ← 改 */
-    max-width: 400px;
-    /* ← 保持桌面版寬度上限 */
-    flex: 1 1 320px;
-    /* ← 讓卡片可縮放、可換行 */
+    border-bottom: 1px solid #e1f1ff;
+}
+
+.pricing-plan:last-child {
+    border-bottom: none;
+}
+
+.pricing-img {
+    margin-bottom: 25px;
+    max-width: 100%;
+    padding: 10px 10px 10px 10px;
+}
+
+.pricing-header {
+    color: #888;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
 .pricing-features {
-    height: 7rem;
+    margin: 50px 0 25px;
+    color: #016ff9;
 }
 
-.pricing-plan ul li {
-    color: rgb(57, 57, 255);
-    border-top: 1px solid #007bff;
-    padding: 20px;
+.pricing-features-item {
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-style: 12px;
+    line-height: 1.5;
+    padding: 15px 0;
+    border-top: 1px solid #e1f1ff;
 }
 
-.pricing-plan span {
-    width: 300px;
-    height: 50px;
-    font-size: 3rem;
+.pricing-features-item:last-child {
+    border-bottom: 1px solid #e1f1ff;
+}
+
+.pricing-price {
+    color: #016ff9;
     display: block;
-    margin: 50px;
-    color: blue;
+    font-size: 32px;
+    font-weight: 700;
 }
 
 .pricing-button {
-    border: 1px solid #007bff;
-    border-radius: 10px / 15px;
-    padding: 20px 60px 20px 60px;
+    border: 1px solid #9dd1ff;
+    border-radius: 10px;
+    color: #348efe;
+    display: inline-block;
+    padding: 15px 35px;
     text-decoration: none;
+    margin: 25px 0;
+    transition: background-color 200ms ease-in-out;
+}
+
+.pricing-button:hover,
+.pricing-button:focus {
+    background-color: #e1f1ff;
 }
 
 .pricing-button.is-featured {
-    border: 1px solid blue;
-    background-color: blue;
+    background-color: #48aaff;
     color: white;
-    border-radius: 10px / 15px;
-    padding: 20px 60px 20px 60px;
-    text-decoration: none;
 }
 
-/* 中段視窗可自動換行，避免擠爆 */
-@media (max-width: 900px) {
-    body {
-        display: block;
-    }
-
-    .panel.pricing-table {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+.pricing-button.is-featured:hover,
+.pricing-button.is-featured:focus {
+    background-color: #269aff;
+    color: white;
 }
 
-/* 你要的：≤400px 直排 + 滿寬 */
-@media (max-width: 400px) {
-    body {
-        display: block;
-        /* ← 最單純，取消 Flex 置中 */
-        background-color: yellow;
-    }
-
-    /* 你原本的檢查用顏色，OK */
-
-    .panel.pricing-table {
-        flex-direction: column;
-        /* ← 直排 */
-        width: 100%;
-        /* ← 滿寬，避免 80% 造成視覺誤差 */
-        gap: 16px;
-        /* ← 卡片間距 */
+@media (min-width: 900px) {
+    .panel {
+        flex-direction: row;
     }
 
     .pricing-plan {
-        width: 100%;
-        /* ← 滿寬卡片 */
-        max-width: none;
-        /* ← 解除 400px 上限，不然仍可能溢出 */
-        height: auto;
-        /* ← 讓高度自適應內容 */
+        border-bottom: none;
+        border-right: 1px solid #e1f1ff;
+        padding: 25px 50px;
     }
 
-    /* 建議也把內部大元素的外距收斂，避免窄螢幕爆版 */
-    .pricing-plan span {
-        margin: 24px auto;
-        font-size: 2rem;
-        width: auto;
+    .pricing-price {
+        margin: 20px 0;
+    }
+
+    .pricing-plan:last-child {
+        border-right: none;
     }
 }
