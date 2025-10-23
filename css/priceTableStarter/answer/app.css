@@ -135,6 +135,7 @@ table {
 }
 
 html {
+    /* V1 setting element with border box */
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
 }
@@ -144,6 +145,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    /* V2 至少和視窗一樣高 */
     min-height: 100vh;
 }
 
@@ -152,7 +154,7 @@ body {
     border-radius: 10px;
     padding: 15px 25px;
     width: 100%;
-    max-width: 1060px;
+    max-width: 960px;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -171,7 +173,6 @@ body {
     margin-bottom: 25px;
     max-width: 100%;
     padding: 10px 10px 10px 10px;
-    min-height: auto;
 }
 
 .pricing-header {
@@ -189,31 +190,34 @@ body {
 }
 
 .pricing-features-item {
-    color: #016ff9;
-    border-top: 1px solid #e1f1ff;
+    font-weight: 600;
     letter-spacing: 1px;
+    font-style: 12px;
     line-height: 1.5;
-    font-size: 1.2em;
     padding: 15px 0;
+    border-top: 1px solid #e1f1ff;
+}
+
+.pricing-features-item:last-child {
+    border-bottom: 1px solid #e1f1ff;
 }
 
 .pricing-price {
     color: #016ff9;
-    font-size: 3rem;
-    font-weight: 600;
     display: block;
-    padding: 25px;
+    font-size: 32px;
+    font-weight: 700;
 }
 
 .pricing-button {
-    color: #348efe;
-    display: inline-block;
-    text-decoration: none;
-    font-size: 2rem;
-    padding: 15px 35px;
-    margin: 25px 0;
     border: 1px solid #9dd1ff;
     border-radius: 10px;
+    color: #348efe;
+    display: inline-block;
+    padding: 15px 35px;
+    text-decoration: none;
+    margin: 25px 0;
+    transition: background-color 200ms ease-in-out;
 }
 
 .pricing-button:hover,
@@ -222,8 +226,8 @@ body {
 }
 
 .pricing-button.is-featured {
-    color: white;
     background-color: #48aaff;
+    color: white;
 }
 
 .pricing-button.is-featured:hover,
@@ -232,7 +236,7 @@ body {
     color: white;
 }
 
-@media (min-width: 960px) {
+@media (min-width: 900px) {
     .panel {
         flex-direction: row;
     }
@@ -240,9 +244,8 @@ body {
     .pricing-plan {
         border-bottom: none;
         border-right: 1px solid #e1f1ff;
-        padding: 20px 30px;
+        padding: 25px 50px;
     }
-
 
     .pricing-price {
         margin: 20px 0;
@@ -251,5 +254,4 @@ body {
     .pricing-plan:last-child {
         border-right: none;
     }
-
 }
