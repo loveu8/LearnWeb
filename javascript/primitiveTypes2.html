@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Basics</title>
+</head>
+
+<body>
+    <script>
+        // strings
+        // Double quotes or single quotes will be fine
+        let userName = "Danny";
+        userName;
+        let favAnimal = 'Dumbo Octopus';
+        favAnimal;
+        let greeting = 'good "morning"';
+        // string can use index to select string char
+        // index will start at 0 and more
+        //            0123456
+        let animal = 'chicken';
+        animal[0];
+        // get string length
+        animal.length;
+        // concat two and more string together
+        let firstName = 'Jessica';
+        let lastName = 'Kon';
+        firstName + lastName;
+        // auto change type
+        1 + 'hi';   // number + string -> it will be string
+        // string method
+        // thing.method()
+        let msg = 'leave me alone right now i hate you plz';
+        let angryMsg = msg.toUpperCase();
+        'LOLOLLLLL!!'.toLowerCase();
+        let userInput = "       helllllllllo world!";
+        userInput.trim();
+        // js method can parse arguments to exec
+        // thing.method(arg)
+        let cat = 'cat meow';
+        cat.indexOf('meow');
+        let sMsg = 'that is so funny';
+        sMsg.slice(5);
+        sMsg.slice(6, 10);
+        sMsg.slice(-5); // we can use negative number
+        let qMsg = 'haha that is so funny';
+        qMsg.replace('haha', 'grest!!!');
+    </script>
+</body>
+
+</html>
