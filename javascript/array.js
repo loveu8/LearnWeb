@@ -20,4 +20,3 @@ color[10] = 'white';
 color;
 
 let beatles = ['paul', 'john', 'george'];
-beatles[3] = '';

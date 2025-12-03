@@ -28,3 +28,60 @@ for (let i = 1; i <= 10; i++) {
 for (let i = 0; i < 6; i++) {
     console.log("Da ba dee da ba daa");
 }
+
+for (let i = 0; i <= 20; i += 2) {
+    console.log(i);
+}
+
+// Write a loop that prints:
+// 25
+// 20
+// 15
+// 10
+// 5
+// 0
+
+for (let i = 25; i >= 0; i -= 5) {
+    console.log(i);
+}
+
+// Infiite Loops
+/*
+// Don't run this!!
+for(let i = 0 ; i >= 0 ; i++){
+}
+*/
+
+// Looping Over Arrays
+const animal = ['lions'];
+
+beatles[3] = '';
+
+// practice
+const people = ["Scooby", "Velma", "Daphne", "Shaggy", "Fred"]; //DONT TOUCH THIS LINE!
+
+// WRITE YOUR LOOP BELOW THIS LINE:
+for (let i = 0; i < people.length; i++) {
+    console.log(people[i].toUpperCase());
+}
+
+// NESTED LOOPS
+for (let i = 1; i <= 10; i++) {
+    console.log(`i is ${i}`);
+    for (let j = 1; j < 4; j++) {
+        console.log(`       j is ${j}`);
+    }
+}
+
+const seatingChart = [
+    ['Kristen', 'Erik', 'Namita'],
+    ['Geoffrey', 'Juanita', 'Antonio', 'Kevin'],
+    ['Yuma', 'Sakura', 'Jack', 'Erika']
+];
+
+for (let row = 0; row < seatingChart.length; row++) {
+    console.log(`row : ${row + 1}`);
+    for (let col = 0; col < seatingChart[row].length; col++) {
+        console.log(`     ${seatingChart[row][col]}`);
+    }
+}
