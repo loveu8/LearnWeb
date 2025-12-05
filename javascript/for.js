@@ -85,3 +85,16 @@ for (let row = 0; row < seatingChart.length; row++) {
         console.log(`     ${seatingChart[row][col]}`);
     }
 }
+
+for (let row of seatingChart) {
+    for (let student of row) {
+        console.log(student);
+    }
+}
+
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]; //DON'T CHANGE THIS LINE PLEASE!
+
+// WRITE YOUR LOOP BELOW THIS LINE:
+for (let num of numbers) {
+    console.log(num * num);
+}
