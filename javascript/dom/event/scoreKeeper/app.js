@@ -22,6 +22,10 @@ resetBtn.addEventListener('click', function (e) {
 function resetScore() {
     p1Display.innerHTML = "0";
     p2Display.innerHTML = "0";
+    p1Btn.disabled = false;
+    p2Btn.disabled = false;
+    p1Display.className = "";
+    p2Display.className = "";
 }
 
 const selectElement = document.querySelector('#playto');
@@ -37,11 +41,21 @@ function checkWin() {
     let p2Score = parseInt(p2Display.innerHTML);
     let winScore = parseInt(selectElement.value);
     if (p1Score >= winScore) {
-        alert('Player One win');
-        resetScore();
+        p1Display.classList.add('has-text-success'); // 使用 CSS Class 而非 Inline Style
+        p2Display.classList.add('has-text-danger');
+        p1Btn.disabled = true;
+        p2Btn.disabled = true;
+        setTimeout(() => {
+            alert('Player One win');
+        }, 50);
     }
     if (p2Score >= winScore) {
-        alert('Player Two win');
-        resetScore();
+        p2Display.classList.add('has-text-success'); // 使用 CSS Class 而非 Inline Style
+        p1Display.classList.add('has-text-danger');
+        p1Btn.disabled = true;
+        p2Btn.disabled = true;
+        setTimeout(() => {
+            alert('Player Two win');
+        }, 50);
     }
 }
