@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <title>專業級 Tweet 管理器</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 40px;
+            background: #f5f8fa;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccd6dd;
+            border-radius: 4px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            border-bottom: 1px solid #e1e8ed;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 5px 12px;
+            border: 1px solid #1da1f2;
+            background: white;
+            color: #1da1f2;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #e8f5fe;
+        }
+
+        .btn-delete {
+            border-color: #e0245e;
+            color: #e0245e;
+        }
+
+        .btn-delete:hover {
+            background: #f9e6eb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Tweet Manager</h1>
+
+        <form id="tweetForm" class="input-group">
+            <input type="text" id="tweetContent" placeholder="有什麼新鮮事？" required>
+            <button type="submit">發佈</button>
+        </form>
+
+        <ul id="tweetList">
+            <li data-id="1712345678" data-likes="0">
+                <div class="content">這是一則預設的推文範例。</div>
+                <div class="actions">
+                    <button data-action="like">👍 <span class="count-display">(0)</span></button>
+                    <button data-action="share">🔗 分享</button>
+                    <button data-action="delete" class="btn-delete">🗑️ 刪除</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        const tweetForm = document.querySelector('#tweetForm');
+        const tweetContent = document.querySelector('#tweetContent');
+        const list = document.querySelector('#tweetList');
+
+        /**
+         * 策略模式：定義各種行為
+         */
+        const tweetActions = {
+            like: (li) => {
+                const currentLikes = parseInt(li.dataset.likes) + 1;
+                li.dataset.likes = currentLikes;
+                li.querySelector('.count-display').innerText = `(${currentLikes})`;
+            },
+            delete: (li) => {
+                if (confirm('確定要刪除嗎？')) li.remove();
+            },
+            share: (li) => {
+                // 回應你之前的問題：如何抓取內容而非 ID
+                const content = li.querySelector('.content').innerText;
+                alert(`正在分享內容：${content}`);
+            }
+        };
+
+        /**
+         * 新增 Tweet 的邏輯：保持 DOM 結構一致
+         */
+        tweetForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const content = tweetContent.value;
+            const id = Date.now(); // 簡單使用時間戳記作為 ID
+
+            const newTweet = document.createElement('li');
+            newTweet.setAttribute('data-id', id);
+            newTweet.setAttribute('data-likes', '0');
+
+            // 關鍵：這裡的 HTML 結構與按鈕的 data-action 必須與初始 HTML 統一
+            newTweet.innerHTML = `
+            <div class="content">${content}</div>
+            <div class="actions">
+                <button data-action="like">👍 <span class="count-display">(0)</span></button>
+                <button data-action="share">🔗 分享</button>
+                <button data-action="delete" class="btn-delete">🗑️ 刪除</button>
+            </div>
+        `;
+
+            // 放在最上面（最新推文）
+            list.prepend(newTweet);
+            tweetForm.reset();
+        });
+
+        /**
+         * 事件委派：統一處理所有 Tweet 的按鈕點擊
+         */
+        list.addEventListener('click', (e) => {
+            const btn = e.target.closest('button');
+            if (!btn) return;
+
+            const action = btn.dataset.action;
+            const li = btn.closest('li');
+
+            if (tweetActions[action]) {
+                tweetActions[action](li);
+            }
+        });
+    </script>
+
+</body>
+
+</html>
