@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "colors": "^1.4.0",
+    "figlet": "^1.9.4",
     "give-me-a-joke": "^0.5.1"
   }
 }
