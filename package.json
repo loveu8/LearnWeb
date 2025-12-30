@@ -10,7 +10,19 @@
   },
   "dependencies": {
     "colors": "^1.4.0",
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
     "figlet": "^1.9.4",
     "give-me-a-joke": "^0.5.1"
-  }
+  },
+  "name": "learnweb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
