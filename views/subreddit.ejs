@@ -1,16 +1,31 @@
- <!DOCTYPE html>
-<html>
-
+<!DOCTYPE html>
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= subreddit %></title>
+    <title>Subreddit: <%= name %></title>
 </head>
-<bod>
-    <!-- EJS Syntax-->
-    <h1>
-        Browsing The <%= subreddit %> subreddit
-    </h1>
-</bod>
+<body>
+    <header>
+        <h1>Browsing /r/<%= name %></h1>
+        <p><%= description %> (<strong><%= subscribers %></strong> fans)</p>
+    </header>
 
+    <main>
+        <% posts.forEach(post => { %>
+            <article class="post-item">
+                <header>
+                    <h3><%= post.title %></h3>
+                    <small>By u/<%= post.author %></small>
+                </header>
+
+                <% if (post.img) { %>
+                    <figure>
+                        <img src="<%= post.img %>" alt="Thumbnail for <%= post.title %>" loading="lazy">
+                    </figure>
+                <% } %>
+            </article>
+        <% }) %>
+    </main>
+</body>
 </html>
