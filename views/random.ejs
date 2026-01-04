@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOME</title>
-</head>
-<bod>
+<%- include('partials/head') %>
+    <%- include('partials/navbar') %>
     <!-- EJS Syntax-->
     <h1> Your random number is <%= rand %>    </h1>
     <% if(rand %2 ===0) { %>
@@ -16,6 +9,4 @@
     <% }%>
     <h3><%= rand%2===0 ? 'EVEN' : 'ODD'%></h3>
 
-</bod>
-
-</html>
+<%- include('partials/footer') %>

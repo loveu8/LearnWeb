@@ -4,6 +4,10 @@ const redditData = require('./data.json');
 const app = express();
 const port = 3000;
 
+// we can define a folder to put some static file
+// and this way can help server to find the file location
+app.use(express.static(path.join(__dirname, '/public')));
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 

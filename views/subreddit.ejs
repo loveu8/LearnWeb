@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subreddit: <%= name %></title>
-</head>
-<body>
+<!-- this can help us to let some of common page be partials -->
+<%- include('partials/head') %>
+    <%- include('partials/navbar') %>
     <header>
         <h1>Browsing /r/<%= name %></h1>
         <p><%= description %> (<strong><%= subscribers %></strong> fans)</p>
@@ -27,5 +22,4 @@
             </article>
         <% }) %>
     </main>
-</body>
-</html>
+<%- include('partials/footer') %>
