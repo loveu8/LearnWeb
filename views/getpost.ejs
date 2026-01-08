@@ -1,0 +1,21 @@
+<!-- this can help us to let some of common page be partials -->
+<%- include('partials/head') %>
+    <%- include('partials/navbar') %>
+    <h2>GET</h2>
+    <form action="/tacos">
+        <label for="meat">meat</label>
+        <input type="text" id="meat" name="meat">
+        <label for="qty">qty</label>
+        <input type="text" id="qty" name="qty">
+        <button>submit</button>
+    </form>
+
+    <h2>POST</h2>
+    <form action="/tacos" method="post">
+        <label for="meat">meat</label>
+        <input type="text" id="meat" name="meat">
+        <label for="qty">qty</label>
+        <input type="text" id="qty" name="qty">
+        <button>submit</button>
+    </form> 
+<%- include('partials/footer') %>

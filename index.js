@@ -2,7 +2,15 @@ const express = require('express');
 const path = require('path');
 const redditData = require('./data.json');
 const app = express();
+const { v4: uuid } = require('uuid'); //For generating ID's
+const console = require('console');
 const port = 3000;
+
+// this can us to see form request body
+app.use(express.urlencoded({ extended: true }));
+// this can us to see request json body
+app.use(express.json());
+
 
 // we can define a folder to put some static file
 // and this way can help server to find the file location
@@ -75,6 +83,81 @@ app.get('/dogs', (req, res) => {
     res.send('WOOF!!');
 })
 
+// ch.35 RestFul API
+app.get('/getpost', (req, res) => {
+    res.render("getpost");
+});
+
+app.get('/tacos', (req, res) => {
+    res.send("GET /tacos response");
+});
+
+app.post('/tacos', (req, res) => {
+    const { meat, qty } = req.body;
+    res.send(`Ok, here are your order. meat : ${meat} , qty : ${qty}`);
+});
+
+// Our fake database:
+const comments = [
+    {
+        id: uuid(),
+        username: 'Todd',
+        comment: 'lol that is so funny!'
+    },
+    {
+        id: uuid(),
+        username: 'Skyler',
+        comment: 'I like to go birdwatching with my dog'
+    },
+    {
+        id: uuid(),
+        username: 'Sk8erBoi',
+        comment: 'Plz delete your account, Todd'
+    },
+    {
+        id: uuid(),
+        username: 'onlysayswoof',
+        comment: 'woof woof woof'
+    }
+];
+
+app.get('/comments', (req, res) => {
+    res.render("comments/index", { comments });
+});
+
+app.get('/comments/new', (req, res) => {
+    res.render("comments/new");
+});
+
+app.post('/comments/new', (req, res) => {
+    const { username, comment } = req.body;
+    const userComment = {
+        uuid: uuid(),
+        username: username,
+        comment: comment
+    };
+    comments.push(userComment);
+    // when user comment post will help them to redirect to comments page
+    res.redirect("/comments");
+});
+
+app.get('/comments/:id', (req, res) => {
+    const { id } = req.params;
+    // for (let c of comments) {
+    //     if (c.id === commentId) {
+    //         data = c;
+    //         break;
+    //     }
+    // }
+    let data = comments.find(c => c.id === id);
+    if (data) {
+        res.render("comments/show", { data });
+    } else {
+        console.log("not found");
+        res.render("comments/notFound", { commentId });
+    }
+});
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
-})
+});
