@@ -16,10 +16,30 @@
         <li>
             <%=c.comment%> - <b><%=c.username%></b>
             <a href="/comments/<%=c.id%>">details</a>
+            <a href="/comments/<%=c.id%>/edit">edit</a>
+            <button  onclick="deleteComment('<%=c.id%>')">delete</button>
         </li>
         <% }%>
     </ul>
     <a href="/comments/new">New a comment</a>
 </body>
-
+    <script>
+        function deleteComment(id) {
+        // 1. 發送 DELETE 請求
+        fetch(`/comments/${id}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            // 2. 確保伺服器回傳 OK
+            if (response.ok) {
+                // 3. 簡單粗暴：重整頁面，讓伺服器重新渲染最新的列表
+                window.location.reload();
+            } else {
+                console.error('Delete failed');
+                alert('刪除失敗！');
+            }
+        })
+        .catch(err => console.error('Error:', err));
+    }
+    </script>
 </html>

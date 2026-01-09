@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>idPost</title>
+</head>
+
+<html>
+
+<body>
+    <h1>Edit comment</h1>
+    <form action="/comments/<%=data.id%>?_method=PATCH" method="POST">
+        <section>
+            <label for="username">Edit username:</label>
+            <input type="text" placeholder="username" name="username" value="<%=data.username%>"></input>
+        </section>
+        <br>
+        <section>
+            <label for="comment">Edit Comment</label><br>
+            <textarea type="text" cols="35" rows="5" placeholder="comment" name="comment"><%=data.comment%></textarea>
+        </section>
+        <button>Submit</button>
+    </form>
+    <a href="/comments"> < Back to comments</a>
+</body>
+
+</html>

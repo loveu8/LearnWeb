@@ -5,11 +5,14 @@ const app = express();
 const { v4: uuid } = require('uuid'); //For generating ID's
 const console = require('console');
 const port = 3000;
+const methodOverride = require('method-override');
 
 // this can us to see form request body
 app.use(express.urlencoded({ extended: true }));
 // this can us to see request json body
 app.use(express.json());
+// 告訴 Express 檢查網址有沒有 ?_method=PATCH
+app.use(methodOverride('_method'));
 
 
 // we can define a folder to put some static file
@@ -98,7 +101,7 @@ app.post('/tacos', (req, res) => {
 });
 
 // Our fake database:
-const comments = [
+let comments = [
     {
         id: uuid(),
         username: 'Todd',
@@ -132,13 +135,15 @@ app.get('/comments/new', (req, res) => {
 app.post('/comments/new', (req, res) => {
     const { username, comment } = req.body;
     const userComment = {
-        uuid: uuid(),
+        id: uuid(),
         username: username,
         comment: comment
     };
+    console.log(userComment);
     comments.push(userComment);
+    console.log(comments);
     // when user comment post will help them to redirect to comments page
-    res.redirect("/comments");
+    res.redirect("/comments?" + Date.now());
 });
 
 app.get('/comments/:id', (req, res) => {
@@ -156,6 +161,52 @@ app.get('/comments/:id', (req, res) => {
         console.log("not found");
         res.render("comments/notFound", { commentId });
     }
+});
+
+app.get('/comments/:id/edit', (req, res) => {
+    const { id } = req.params;
+    let data = comments.find(c => c.id === id);
+    if (data) {
+        res.render("comments/edit", { data });
+    } else {
+        console.log("not found");
+        res.render("comments/notFound", { commentId });
+    }
+});
+
+app.patch('/comments/:id', (req, res) => {
+    // 1. Debug 第一步：先印出來確認進來了沒
+    console.log("PATCH route hit!");
+
+    const { id } = req.params; // ID 在網址
+    const { username, comment } = req.body; // 內容在表單 Body
+
+    // 2. 找到 Array 裡的物件
+    const foundComment = comments.find(c => c.id === id);
+
+    if (foundComment) {
+        // 3. 直接修改屬性 (Pass by Reference)
+        foundComment.username = username; // 如果允許改名的話
+        foundComment.comment = comment;
+        console.log("Updated:", foundComment);
+        res.redirect("/comments");
+    } else {
+        console.log("Comment not found for update");
+        res.status(404).send("Not Found");
+    }
+});
+
+app.delete('/comments/:id', (req, res) => {
+    // 0. Debug 第一步：先印出來確認進來了沒
+    console.log("DELETE route hit!");
+    const { id } = req.params; // ID 在網址
+    // 1. 過濾掉不要的 (記得這是最簡單的刪除法)
+    // 注意：這裡假設 comments 是全域變數 (let comments = [...])
+    comments = comments.filter(c => c.id !== id);
+
+    // 2. 不需要 redirect，因為是 fetch 請求。
+    // 回傳一個簡單的 JSON 或文字就好。
+    res.json({ status: 'ok' });
 });
 
 app.listen(port, () => {
