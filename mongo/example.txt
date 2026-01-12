@@ -1,0 +1,113 @@
+// 1. 切換資料庫
+// MongoDB 是 "Lazy" 的。如果 database 不存在，它會切換過去，
+// 但直到你真正寫入第一筆資料 (Insert) 之前
+// 這個 DB 都不會被實體建立。
+use animalShelter
+
+// 2. 顯示現有的 Collections (資料表)
+show collections
+
+// 3. 插入資料
+// MongoDB 使用 BSON (Binary JSON) 格式。
+// 重點：BSON 是為了「高效解析 (Parsing Speed)」
+// 和支援更多「資料型別 (Types)」，
+// 而不單純只是為了省空間。
+db.dogs.insertOne({
+    name: "Charn",
+    age: 3,
+    breed: "corgi",
+    catFriendly: true
+});
+
+// 4. 查詢所有資料
+db.dogs.find();
+
+// insert new two dogs
+db.dogs.insert([
+    {
+        name: "Wyatt",
+        age: 14,
+        breed: "Golden",
+        catFriendly: false
+    },
+    {
+        name: "Tonya",
+        age: 17,
+        breed: "Chihuahua",
+        catFriendly: true
+    }
+]);
+
+// insert a new cat
+db.cats.insertOne(
+    {
+        name: "Blue Steele",
+        age: 6,
+        breed: "Scottish",
+        dogFriendly: false
+    }
+);
+
+// query datas
+db.dogs.find({breed:"corgi"});
+
+// only query one data
+db.dogs.findOne({catFriendly:false});
+ 
+// mutli condition
+db.dogs.find({age : 14 , catFriendly:false});
+
+// update one
+db.dogs.updateOne({catFriendly:false},{$set:{age:4}});
+
+db.dogs.find({catFriendly:false});
+
+// update many
+db.dogs.updateMany({catFriendly:false},{$set:{age:6}});
+
+db.dogs.find({catFriendly:false});
+
+// update with timestamp
+db.cats.updateOne({age:6},{$set:{age:7}, $currentDate:{lastChanged:true}});
+
+// delete data
+db.dogs.find();
+
+db.dogs.deleteOne({catFriendly:true});
+
+db.dogs.find();
+
+db.dogs.deleteMany({catFriendly:false});
+
+db.dogs.find();
+
+// this will delete all
+db.dogs.deleteMany({});
+
+db.dogs.find();
+
+// find data when it match our conditions
+// document link :https://www.mongodb.com/zh-cn/docs/manual/reference/method/db.collection.find/
+
+db.dogs.insertOne({
+    name: "Amei",
+    age: 3,
+    breed: "corgi",
+    "persionality" : {
+        catFriendly: true,
+        childFriendly :true
+    }
+});
+
+// If we need to query by nest data, we can use this example
+db.dogs.find({'persionality.childFriendly':true});
+
+// use condition to find data
+// $gt : find age greater than 8
+db.dogs.find({age : {$gt:8}});
+
+// $in : use mutli condition to find the match datas
+db.dogs.find({breed : {$in:['Golden','corgi']}});
+
+// $nin : use mutli condition to find the not match datas
+db.dogs.find({breed : {$nin:['Golden','corgi']}});
