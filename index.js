@@ -237,7 +237,7 @@ const Movie = mongoose.model('Movie', movieSchema);
 // 2. 這是你要的 GET Route
 // 瀏覽器訪問： http://localhost:3000/seed-movie
 // 如果要清除，再mongo shell輸入db.movies.deleteMany({})，會全部清掉
-app.get('/seed-movie', async (req, res) => {
+app.get('/movies/seed-movie', async (req, res) => {
 
     // 步驟 A: 準備資料
     const movie = new Movie({
@@ -286,7 +286,7 @@ const seedData = [
 
 // 2. 建立一個 API 來執行寫入
 // 瀏覽器訪問：http://localhost:3000/seed
-app.get('/seed', async (req, res) => {
+app.get('/movies/seed', async (req, res) => {
     try {
         // insertMany 是 Mongoose 的神器，一次寫入全部，效率比迴圈 save() 高一百倍
         await Movie.insertMany(seedData);
@@ -307,4 +307,74 @@ app.get('/movies', async (req, res) => {
 
     // 把找到的資料直接用 JSON 格式丟回給瀏覽器，方便看
     res.json(allMovies);
+});
+
+app.get('/movies/query', async (req, res) => {
+    // 1. 從 query string 拿資料 (不是 params!)
+    const { id, title, year, score, rating } = req.query;
+
+    // 2. 建立一個空的過濾器物件 (Data Structure)
+    const filter = {};
+
+    // 3. 動態填入條件
+    // 只有當用戶真的傳了 year，我們才把 year 加進過濾器
+    if (id) {
+        filter._id = id;
+    }
+
+    if (year) {
+        filter.year = year;
+    }
+
+    if (rating) {
+        filter.rating = rating;
+    }
+
+    if (score) {
+        filter.score = score;
+    }
+
+    // 進階：標題通常想做 "模糊搜尋" (包含字串就算)，而不是完全相等
+    if (title) {
+        // $regex 是 MongoDB 的正規表達式搜尋
+        // $options: 'i' 代表忽略大小寫 (Case Insensitive)
+        filter.title = { $regex: title, $options: 'i' };
+    }
+
+    // Debug: 看看我們最後組出了什麼鬼東西
+    console.log("搜尋條件:", filter);
+
+    // 4. 把乾淨的過濾器丟給資料庫
+    const matchMovies = await Movie.find(filter);
+
+    res.json(matchMovies);
+});
+
+// 更新資料
+app.patch('/movies/:id', async (req, res) => {
+    const { id } = req.params;
+
+    // req.body 就是你要改的內容，例如 { score: 10, year: 2024 }
+    // Data Structures > Code: 直接把物件傳進去，不要一個個欄位解構
+    const updatePayload = req.body;
+
+    try {
+        const updateMovie = await Movie.findByIdAndUpdate(
+            id, // 1.更新哪一筆
+            updatePayload, // 2.改什麼
+            {
+                new: true,           // 關鍵設定A : 回傳更新後的資料
+                runValidators: true  // 關鍵設定 B: 依然要檢查 Schema 規則 (例如 score 不能是字串)
+            }
+        );
+
+        if (!updateMovie) {
+            return res.status(404).json({ error: "找不到這部電影" });
+        }
+
+        console.log("更新成功", updateMovie);
+        res.json(updateMovie);
+    } catch (e) {
+        res.status(404).json({ error: "更新失敗: " + e.message });
+    }
 });
