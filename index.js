@@ -6,6 +6,13 @@ const { v4: uuid } = require('uuid'); //For generating ID's
 const console = require('console');
 const port = 3000;
 const methodOverride = require('method-override');
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://127.0.0.1:27017/movie');
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+    console.log('CONNECTION OPEN!!');
+});
 
 // this can us to see form request body
 app.use(express.urlencoded({ extended: true }));
@@ -211,4 +218,93 @@ app.delete('/comments/:id', (req, res) => {
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
+});
+
+// mongoose
+// this help us to set up Schema
+const movieSchema = new mongoose.Schema({
+    title: String,
+    year: Number,
+    score: Number,
+    rating: String
+});
+
+// TOPIC : 新增資料
+// 目標 : 新增1筆
+// 1. 確保你的 Model 名字改對了 (不要再用 Moive 了)
+const Movie = mongoose.model('Movie', movieSchema);
+
+// 2. 這是你要的 GET Route
+// 瀏覽器訪問： http://localhost:3000/seed-movie
+// 如果要清除，再mongo shell輸入db.movies.deleteMany({})，會全部清掉
+app.get('/seed-movie', async (req, res) => {
+
+    // 步驟 A: 準備資料
+    const movie = new Movie({
+        title: 'Amadeus',
+        year: 1986,
+        score: 9.2,
+        rating: 'R'
+    });
+
+    // 步驟 B: 寫入資料庫 (用 await 等它做完，不要瞎跑)
+    await movie.save();
+
+    // 步驟 C: 告訴瀏覽器結果
+    res.send('OK! 資料寫入成功，快去 MongoDB Shell 檢查！');
+});
+
+// 目標 : 新增多筆
+// 1. 把你的資料整理成一個漂亮的 Array (資料結構)
+// 這樣以後要加電影，只要改這個 Array，不用動邏輯程式碼
+const seedData = [
+    {
+        title: 'Amadeus',
+        year: 1986,
+        score: 9.2,
+        rating: 'R'
+    },
+    {
+        title: 'Sharknado',
+        year: 2013,
+        score: 3.3,
+        rating: 'TV-14'
+    },
+    {
+        title: 'Alien',
+        year: 1979,
+        score: 8.1,
+        rating: 'R'
+    },
+    {
+        title: 'Stand By Me',
+        year: 1986,
+        score: 8.6,
+        rating: 'R'
+    }
+];
+
+// 2. 建立一個 API 來執行寫入
+// 瀏覽器訪問：http://localhost:3000/seed
+app.get('/seed', async (req, res) => {
+    try {
+        // insertMany 是 Mongoose 的神器，一次寫入全部，效率比迴圈 save() 高一百倍
+        await Movie.insertMany(seedData);
+
+        console.log("資料庫播種成功！");
+        res.send("OK! 電影資料已全部寫入！");
+    } catch (e) {
+        console.log("寫入失敗", e);
+        res.send("ERROR: " + e.message);
+    }
+});
+
+// TOPIC : 查詢資料
+// 查詢全部
+app.get('/movies', async (req, res) => {
+    // 沒有條件 = 找全部
+    const allMovies = await Movie.find({});
+
+    // 把找到的資料直接用 JSON 格式丟回給瀏覽器，方便看
+    res.json(allMovies);
 });
