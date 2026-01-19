@@ -378,3 +378,60 @@ app.patch('/movies/:id', async (req, res) => {
         res.status(404).json({ error: "更新失敗: " + e.message });
     }
 });
+
+// TOPIC: 進階更新 - findOneAndUpdate
+// 場景：我不知道 ID，但我知道標題 (Title)，我想改它的分數
+// URL: PATCH /movies/title/Alien
+app.patch('/movies/title/:title', async (req, res) => {
+    // 1. 準備查詢條件 (Query Condition)
+    // Data Structures > Code: 這裡的 Key 必須對應資料庫欄位名稱
+    const filter = { title: req.params.title };
+
+    // 2. 準備更新內容 (Update Payload)
+    const updatePayload = req.body;
+
+    try {
+        // findOneAndUpdate 接收三個參數：
+        // (1) 條件: 找不到就拉倒
+        // (2) 內容: 要改什麼
+        // (3) 選項: 設定回傳行為與驗證
+        const updatedMovie = await Movie.findOneAndUpdate(
+            filter,
+            updatePayload,
+            {
+                new: true,           // 重要：回傳「改完後」的資料 (預設是回傳舊的)
+                runValidators: true  // 重要：依然要檢查 Schema (例如 score 不能 > 10)
+            }
+        );
+
+        // 防呆：如果找不到該標題的電影
+        if (!updatedMovie) {
+            return res.status(404).json({ error: "找不到標題為 " + req.params.title + " 的電影" });
+        }
+
+        console.log("更新成功:", updatedMovie);
+        res.json(updatedMovie);
+
+    } catch (e) {
+        // 捕捉驗證錯誤 (例如 score 給了 100 分)
+        res.status(400).json({ error: "更新失敗: " + e.message });
+    }
+});
+
+
+// 刪除
+app.delete('/movies/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deletedMovie = await Movie.findByIdAndDelete(id);
+
+        if (!deletedMovie) {
+            return res.status(404).json({ error: "找不到這部電影，無法刪除" });
+        }
+
+        console.log("已刪除:", deletedMovie);
+        res.json(deletedMovie);
+    } catch (e) {
+        res.status(400).json({ error: "刪除失敗: " + e.message });
+    }
+});
