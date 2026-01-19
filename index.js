@@ -419,10 +419,16 @@ app.patch('/movies/title/:title', async (req, res) => {
 });
 
 
-// 刪除
+// TOPIC: 根據條件刪除單筆 - findOneAndDelete
+// 場景：用戶輸入電影名稱來刪除
+// URL: DELETE /movies/title/Sharknado
 app.delete('/movies/:id', async (req, res) => {
+    // Data Structures > Code: 
+    // 這裡的 key "title" 對應資料庫欄位，value 對應網址參數
     const { id } = req.params;
     try {
+
+        // 找到符合條件的第一筆，刪掉它，並把屍體帶回來
         const deletedMovie = await Movie.findByIdAndDelete(id);
 
         if (!deletedMovie) {
@@ -433,5 +439,35 @@ app.delete('/movies/:id', async (req, res) => {
         res.json(deletedMovie);
     } catch (e) {
         res.status(400).json({ error: "刪除失敗: " + e.message });
+    }
+});
+
+// TOPIC: 批次刪除 - deleteMany
+// 場景：刪除所有爛片 (評分低於 5 分)
+// URL: DELETE /movies/bad-movies
+app.delete('/movies/bad-movies', async (req, res) => {
+    try {
+        // 1. 定義什麼是爛片 (Data Structure)
+        // $lt 是 Less Than (小於)
+        const filter = { score: { $lt: 5 } };
+
+        // 2. 執行刪除
+        // 注意：這裡回傳的不是電影資料，而是「刪除報告」
+        const result = await Movie.deleteMany(filter);
+
+        // result 會長這樣： { "acknowledged": true, "deletedCount": 3 }
+        console.log("大屠殺報告:", result);
+
+        if (result.deletedCount === 0) {
+            return res.json({ message: "沒有爛片可以刪，你的品味真好！" });
+        }
+
+        res.json({
+            message: "大掃除完成！",
+            count: result.deletedCount
+        });
+
+    } catch (e) {
+        res.status(500).json({ error: "大屠殺失敗: " + e.message });
     }
 });
