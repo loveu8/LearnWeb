@@ -1,7 +1,30 @@
+const mongoose = require('mongoose');
 const Movie = require('../models/movie');
 const seedData = require('../utils/seedData');
 
+const localMovieUri = 'mongodb://127.0.0.1:27017/movie';
+let moviesDbConnectPromise;
+
+async function ensureMoviesDbConnection() {
+    if (process.env.MONGO_URI) {
+        return;
+    }
+
+    if (mongoose.connection.readyState === 1) {
+        return;
+    }
+
+    if (!moviesDbConnectPromise) {
+        moviesDbConnectPromise = mongoose.connect(localMovieUri).then(() => {
+            console.log('Movies controller connected to local MongoDB.');
+        });
+    }
+
+    await moviesDbConnectPromise;
+}
+
 async function seedMovie(req, res) {
+    await ensureMoviesDbConnection();
     const movie = new Movie({
         title: 'Amadeus',
         year: 1986,
@@ -15,6 +38,7 @@ async function seedMovie(req, res) {
 }
 
 async function seedMovies(req, res) {
+    await ensureMoviesDbConnection();
     try {
         await Movie.insertMany(seedData);
         console.log('Movies seeded.');
@@ -26,11 +50,13 @@ async function seedMovies(req, res) {
 }
 
 async function listMovies(req, res) {
+    await ensureMoviesDbConnection();
     const allMovies = await Movie.find({});
     res.json(allMovies);
 }
 
 async function queryMovies(req, res) {
+    await ensureMoviesDbConnection();
     const { id, title, year, score, rating } = req.query;
     const filter = {};
 
@@ -60,6 +86,7 @@ async function queryMovies(req, res) {
 }
 
 async function updateMovieById(req, res) {
+    await ensureMoviesDbConnection();
     const { id } = req.params;
     const updatePayload = req.body;
 
@@ -81,6 +108,7 @@ async function updateMovieById(req, res) {
 }
 
 async function updateMovieByTitle(req, res) {
+    await ensureMoviesDbConnection();
     const filter = { title: req.params.title };
     const updatePayload = req.body;
 
@@ -102,6 +130,7 @@ async function updateMovieByTitle(req, res) {
 }
 
 async function deleteMovieById(req, res) {
+    await ensureMoviesDbConnection();
     const { id } = req.params;
     try {
         const deletedMovie = await Movie.findByIdAndDelete(id);
@@ -118,6 +147,7 @@ async function deleteMovieById(req, res) {
 }
 
 async function deleteBadMovies(req, res) {
+    await ensureMoviesDbConnection();
     try {
         const filter = { score: { $lt: 5 } };
         const result = await Movie.deleteMany(filter);
