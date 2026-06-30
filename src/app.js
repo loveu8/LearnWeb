@@ -5,6 +5,7 @@ const requestLogger = require('./middlewares/requestLogger');
 const pagesRoutes = require('./routes/pages');
 const commentsRoutes = require('./routes/comments');
 const moviesRoutes = require('./routes/movies');
+const farmStandRoutes = require('./routes/farmStand');
 
 const app = express();
 const projectRoot = path.join(__dirname, '..');
@@ -26,5 +27,7 @@ app.get('/health', (req, res) => {
 app.use('/', pagesRoutes);
 app.use('/comments', commentsRoutes);
 app.use('/movies', moviesRoutes);
+app.use('/farmStand', farmStandRoutes);
+
 
 module.exports = app;
