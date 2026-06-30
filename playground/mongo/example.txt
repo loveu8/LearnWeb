@@ -1,3 +1,44 @@
+// ============================================================
+// 0. 從 Git Bash（或任何終端機）啟動 MongoDB Shell
+// ============================================================
+
+// 0-1. 確認 MongoDB 服務是否正在執行（Windows）
+//      在另一個終端機視窗執行，或確認 Windows 服務裡的 MongoDB 已啟動
+
+// 0-2. 啟動 mongosh（新版 Shell，推薦使用）
+mongosh
+// 連線到本機預設 port 27017，等同於：
+mongosh "mongodb://127.0.0.1:27017"
+
+// 0-3. 連線到指定資料庫（直接進入）
+mongosh "mongodb://127.0.0.1:27017/animalShelter"
+
+// 0-4. 連線時帶帳號密碼（有開啟認證時才需要）
+mongosh "mongodb://username:password@127.0.0.1:27017/dbName"
+
+// 0-5. 進入 Shell 後，常用的管理指令
+show dbs          // 列出所有資料庫
+show collections  // 列出目前 DB 的所有 collections
+db                // 顯示目前在哪個資料庫
+exit              // 離開 Shell（或按 Ctrl+C）
+
+// 0-6. 切換資料庫 / 「離開」目前資料庫
+// MongoDB Shell 沒有「離開資料庫」的指令，你永遠都在某個 DB 裡。
+// 想切走就 use 另一個：
+use test          // 切回 MongoDB 預設的 test 資料庫（mongosh 剛開啟時的初始狀態）
+use anotherDB     // 或直接切到下一個要用的 DB
+
+// 0-7. Collection（資料表）沒有「進入」的概念
+// MongoDB Shell 只有一層狀態切換，就是 use <資料庫>。
+// Collection 不是目錄，你不會「進入」它，每次操作都要完整寫 db.xxx：
+//
+//   db.dogs.find()       ← db = 目前資料庫，dogs = collection 名稱
+//   db.dogs.insertOne()
+//   db.cats.find()       ← 直接操作另一個 collection，不需要「退出 dogs」
+//
+// 所以不存在「退出 collection」這件事，切 DB 用 use，切 collection 就直接改 db.xxx 的名字。
+
+// ============================================================
 // 1. 切換資料庫
 // MongoDB 是 "Lazy" 的。如果 database 不存在，它會切換過去，
 // 但直到你真正寫入第一筆資料 (Insert) 之前
