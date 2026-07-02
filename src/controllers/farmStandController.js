@@ -10,17 +10,49 @@ const farmStandConnection = mongoose.createConnection(localFarmStandUri);
 const FarmProduct = farmStandConnection.model('farmProduct', farmProductSchema);
 
 async function addCategories(req, res) {
-    const farmProduct = new FarmProduct({
-        name: 'Guva',
-        price: 1,
-        category: 'fruit'
-    });
+    const taiwanFruits = [
+        { name: 'Mango', price: 50, category: 'fruit' },
+        { name: 'Pineapple', price: 45, category: 'fruit' },
+        { name: 'Papaya', price: 30, category: 'fruit' },
+        { name: 'Banana', price: 20, category: 'fruit' },
+        { name: 'Grape', price: 80, category: 'fruit' },
+        { name: 'Wax Apple', price: 60, category: 'fruit' },
+        { name: 'Tomato', price: 25, category: 'vegetable' },
+        { name: 'Cabbage', price: 35, category: 'vegetable' },
+        { name: 'Milk', price: 40, category: 'dairy' },
+        { name: 'Cheese', price: 120, category: 'dairy' }
+    ];
 
-    await farmProduct.save();
+    try {
+        const result = await FarmProduct.insertMany(taiwanFruits);
+        res.send(`✅ Successfully added ${result.length} products!`);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
 
-    res.send('OK! farmProduct saved.');
+async function products(req, res) {
+    try {
+        const productsList = await FarmProduct.find({});
+        console.log(productsList);
+        res.render('farmProduct/index', { products: productsList });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+async function showProduct(req, res) {
+    try {
+        const product = await FarmProduct.findById(req.params.id);
+        console.log(product);
+        res.render('farmProduct/show', { product: product });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 }
 
 module.exports = {
-    addCategories
+    addCategories,
+    products,
+    showProduct
 };
