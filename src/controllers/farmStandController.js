@@ -51,8 +51,29 @@ async function showProduct(req, res) {
     }
 }
 
+async function newProduct(req, res) {
+    try {
+        res.render('farmProduct/new');
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+async function addNewProduct(req, res) {
+    try {
+        const newProduct = new FarmProduct(req.body);
+        await newProduct.save();
+        console.log(newProduct);
+        res.redirect(`/farmStand/product/${newProduct._id}`);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 module.exports = {
     addCategories,
     products,
-    showProduct
+    showProduct,
+    newProduct,
+    addNewProduct
 };
