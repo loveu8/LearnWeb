@@ -13,4 +13,10 @@ router.get('/product/new', farmStandController.newProduct);
 router.post('/product/new', farmStandController.addNewProduct);
 
 router.get('/product/:id', farmStandController.showProduct);
+
+router.get('/product/:id/edit', farmStandController.editProduct);
+
+router.put('/product/:id', farmStandController.editProductAction);
+
+router.delete('/product/:id', farmStandController.deleteProduct);
 module.exports = router;

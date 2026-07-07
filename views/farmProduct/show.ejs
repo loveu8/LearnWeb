@@ -9,6 +9,11 @@
     <li>
         <%= product.name %> - $ <%= product.price %> (<%= product.category %>)
     </li>
+    Tag : <a href="/farmStand/products?category=<%= product.category %>"><%= product.category %></a> <br>
     <a href="/farmStand/products">All products</a>
+    <a href="/farmStand/product/<%= product._id %>/edit">Edit</a>
+    <form action="/farmStand/product/<%= product._id %>?_method=DELETE" method="POST">
+        <button>Delete</button>
+    </form>
 </body>
 </html>

@@ -2,7 +2,7 @@ const app = require('./app');
 const connectDB = require('./config/db');
 const log = require('./utils/logger');
 
-const port = process.env.PORT || 8888;
+const port = process.env.PORT || 9999;
 
 async function startServer() {
     log.info('Starting server...');

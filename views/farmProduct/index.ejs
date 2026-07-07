@@ -2,16 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>All products</title>
+  <title><%=category%> products</title>
 </head>
 <body>
-    <h1>Farm Products</h1>
+    <h1><%=category%> Products</h1>
+    <a href='/farmStand/product/new'>New a product</a>
     <% if (products.length === 0) { %>
             <p>No Products yet</p>
     <% } else { %>
+            <ul>
             <% products.forEach(product => {%>
                 <li><a href="/farmStand/product/<%= product._id %>"><%= product.name %></a></li>                
             <% }); %>
+            </ul>
+    <% } %>
+    <% if (isFilter) { %>
+        <a href="/farmStand/products">All Products</a>
     <% } %>
 </body>
 </html>
